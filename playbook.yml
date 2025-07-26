@@ -1,0 +1,7 @@
+---
+- name: Configurar Apache y Samba en InnovaSys
+  hosts: innovasys
+  become: true
+  roles:
+    - apache
+    - samba

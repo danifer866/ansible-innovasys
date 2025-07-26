@@ -1,0 +1,2 @@
+[innovasys]
+servidor-innovasys ansible_host=192.168.56.101 ansible_user=devops ansible_ssh_pass=Passw0rd ansible_become_pass=Passw0rd

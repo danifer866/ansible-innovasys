@@ -1,0 +1,4 @@
+samba_grupo: desarrolladores
+samba_usuario: devuser1
+samba_password: Innova.2025
+samba_directorio: /srv/samba/proyectos

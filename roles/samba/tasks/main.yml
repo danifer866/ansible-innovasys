@@ -1,0 +1,53 @@
+---
+- name: Instalar Samba
+  apt:
+    name: samba
+    state: present
+    update_cache: yes
+
+- name: Crear grupo de desarrolladores
+  group:
+    name: "{{ samba_grupo }}"
+    state: present
+
+- name: Crear usuario de sistema sin shell
+  user:
+    name: "{{ samba_usuario }}"
+    shell: /usr/sbin/nologin
+    group: "{{ samba_grupo }}"
+    system: true
+    state: present
+
+- name: Crear directorio compartido
+  file:
+    path: "{{ samba_directorio }}"
+    state: directory
+    owner: root
+    group: "{{ samba_grupo }}"
+    mode: '0770'
+
+- name: Configurar recurso compartido en smb.conf
+  blockinfile:
+    path: /etc/samba/smb.conf
+    block: |
+      [Proyectos]
+      path = {{ samba_directorio }}
+      browsable = yes
+      read only = no
+      guest ok = no
+      valid users = @{{ samba_grupo }}
+  notify: Reiniciar samba
+
+- name: Establecer contraseña para usuario Samba
+  shell: |
+    (echo '{{ samba_password }}'; echo '{{ samba_password }}') | smbpasswd -a {{ samba_usuario }}
+  args:
+    executable: /bin/bash
+  register: samba_pass
+  changed_when: "'added user' in samba_pass.stdout or 'updated password' in samba_pass.stdout"
+
+- name: Asegurar que el servicio smbd esté habilitado y en ejecución
+  service:
+    name: smbd
+    state: started
+    enabled: true
