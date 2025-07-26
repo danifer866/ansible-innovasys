@@ -17,26 +17,6 @@ Este proyecto crea:
 
 ---
 
-## Estructura
-
-```bash
-proyecto_innovasys/
-├── ansible.cfg
-├── inventario
-├── playbook.yml
-├── roles/
-│   ├── apache/
-│   │   ├── tasks/
-│   │   ├── templates/
-│   │   ├── vars/
-│   │   └── handlers/
-│   └── samba/
-│       ├── tasks/
-│       ├── vars/
-│       └── handlers/
-
----
-
 ## Como ejecutar el playbook
 - Clonar el repositorio
 git clone https://github.com/danifer866/ansible-innovasys.git
@@ -56,3 +36,24 @@ http://192.168.56.101
 smb://192.168.56.101/Proyectos
 Usuario: devuser1
 Contrase: Innova.2025
+
+---
+
+## Estructura
+
+```bash
+proyecto_innovasys/
+├── ansible.cfg
+├── inventario
+├── playbook.yml
+├── roles/
+│   ├── apache/
+│   │   ├── tasks/
+│   │   ├── templates/
+│   │   ├── vars/
+│   │   └── handlers/
+│   └── samba/
+│       ├── tasks/
+│       ├── vars/
+│       └── handlers/
+
